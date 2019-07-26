@@ -47,6 +47,7 @@ func main() {
 	pipe.Compile()
 
 	vertices = graphics4.InitVertexBuffer(3, structure, graphics4.Static, 0)
+	defer vertices.Unlock(3)
 	_v := make([]float32, 9)
 	_v[0] = -1
 	_v[1] = -1
@@ -58,15 +59,14 @@ func main() {
 	_v[7] = 1
 	_v[8] = 0.5
 	vertices.Lock(_v, 0, 3)
-	vertices.Unlock(3)
 
 	indices = graphics4.InitIndexBuffer(3)
+	defer indices.Unlock()
 	_i := make([]float32, 3)
 	_i[0] = 0
 	_i[1] = 1
 	_i[2] = 2
 	indices.Lock(_i)
-	indices.Unlock()
 
 	kinc.Start()
 }
